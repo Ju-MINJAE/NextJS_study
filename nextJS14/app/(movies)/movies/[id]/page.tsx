@@ -1,12 +1,20 @@
 import { Suspense } from 'react';
-import MovieInfo from '../../../../components/movie-info';
+import MovieInfo, { getMovie } from '../../../../components/movie-info';
 import MovieVideos from '../../../../components/movie-videos';
 
-export default async function MovieDetail({
-  params: { id },
-}: {
+interface IParams {
   params: { id: string };
-}) {
+}
+
+export async function generateMetadata({ params: { id } }: IParams) {
+  const movie = await getMovie(id);
+
+  return {
+    title: movie.title,
+  };
+}
+
+export default async function MovieDetail({ params: { id } }: IParams) {
   return (
     <div>
       <h3>Movie Detail Page</h3>
@@ -22,3 +30,5 @@ export default async function MovieDetail({
 }
 
 // Suspense : 컴포넌트의 렌더링에 필요한 무언가를 대기할 수 있도록 하는 기능
+// Promise.all : 여러 개의 Promise들을 비동기적으로 실행하여 처리 가능
+//               여러 개의 Promise들 중 하나라도 reject을 반환하거나 에러가 날 경우, 모든 Promise들을 reject
