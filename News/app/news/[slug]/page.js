@@ -1,4 +1,4 @@
-import { DUMMY_NEWS } from '@/\bdummy-news';
+import { DUMMY_NEWS } from '@/dummy-news';
 import { notFound } from 'next/navigation';
 
 export default function NewsDetailPage({ params }) {
